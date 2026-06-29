@@ -76,7 +76,6 @@ Pipeline stages:
 
 Detailed project resources:
 
-- [Architecture Diagram](./docs/architecture-diagram.png)
 - [Project Documentation](./docs/project-documentation.pdf)
 
 ## Deployment Evidence
