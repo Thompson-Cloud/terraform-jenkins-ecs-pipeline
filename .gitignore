@@ -1,13 +1,14 @@
 
-# Terraform state and local files
-terraform/*.tfstate
-terraform/*.tfstate.backup
+
+# Terraform
 terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
 terraform/.terraform.lock.hcl
-*.tfvars
-*.tfvars.json
 
-
-node_modules/
+# Node
 frontend/node_modules/
 backend/node_modules/
+
+# Misc
+.DS_Store
