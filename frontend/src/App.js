@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>TechPathway Challenge-02</h1>
+      <h1>TechPathway Challenge-2</h1>
       <h2>Backend Response:</h2>
       <p>{successMessage}</p>
     </div>
