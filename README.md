@@ -1,60 +1,106 @@
-# Overview
-This repository contains a React frontend, and an Express backend that the frontend connects to.
+# TechPathway Challenge 2 – AWS ECS CI/CD Pipeline
 
-# Objective
-Deploy the frontend and backend to somewhere publicly accessible over the internet. The AWS Free Tier should be more than sufficient to run this project, but you may use any platform and tooling you'd like for your solution.
+## Overview
 
-Fork this repo as a base. You may change any code in this repository to suit the infrastructure you build in this code challenge.
+This project implements an end-to-end CI/CD pipeline for deploying a containerized full-stack application on AWS using Jenkins, Terraform, Amazon ECS (Fargate), and Amazon ECR.
 
-# Submission
-1. A github repo that has been forked from this repo with all your code.
-2. Modify this README file with instructions for:
-* Any tools needed to deploy your infrastructure
-* All the steps needed to repeat your deployment process
-* URLs to the your deployed frontend.
+The application consists of:
+- React frontend
+- Express backend
 
-# Evaluation
-You will be evaluated on the ease to replicate your infrastructure. This is a combination of quality of the instructions, as well as any scripts to automate the overall setup process.
+The deployment workflow is fully automated:
+- Code push to GitHub triggers Jenkins pipeline via webhook
+- Jenkins builds Docker images
+- Images are pushed to Amazon ECR
+- ECS services are updated automatically
 
-# Setup your environment
-Install nodejs. Binaries and installers can be found on nodejs.org.
-https://nodejs.org/en/download/
+---
 
-For macOS or Linux, Nodejs can usually be found in your preferred package manager.
-https://nodejs.org/en/download/package-manager/
+## Architecture
 
-Depending on the Linux distribution, the Node Package Manager `npm` may need to be installed separately.
+High-level architecture includes:
 
-# Running the project
-The backend and the frontend will need to run on separate processes. The backend should be started first.
-```
-cd backend
-npm ci
-npm start
-```
-The backend should response to a GET request on `localhost:8080`.
+- Jenkins on EC2 for CI/CD orchestration  
+- Amazon ECR for container image storage  
+- Amazon ECS (Fargate) for containerized workloads  
+- Application Load Balancer for traffic routing  
+- Terraform for infrastructure provisioning  
 
-With the backend started, the frontend can be started.
-```
-cd frontend
-npm ci
-npm start
-```
-The frontend can be accessed at `localhost:3000`. If the frontend successfully connects to the backend, a message saying "SUCCESS" followed by a guid should be displayed on the screen.  If the connection failed, an error message will be displayed on the screen.
+### Routing
+- `/` → Frontend Service  
+- `/api` → Backend Service  
 
-# Configuration
-The frontend has a configuration file at `frontend/src/config.js` that defines the URL to call the backend. This URL is used on `frontend/src/App.js#12`, where the front end will make the GET call during the initial load of the page.
+![Architecture Diagram](./docs/architecture-diagram.png)
+---
 
-The backend has a configuration file at `backend/config.js` that defines the host that the frontend will be calling from. This URL is used in the `Access-Control-Allow-Origin` CORS header, read in `backend/index.js#14`
+## Tech Stack
 
-# Optional Extras
-The core requirement for this challenge is to get the provided application up and running for consumption over the public internet. That being said, there are some opportunities in this code challenge to demonstrate your skill sets that are above and beyond the core requirement.
+### Cloud & Infrastructure
+- AWS EC2
+- AWS ECS Fargate
+- AWS ECR
+- AWS ALB
+- AWS VPC
+- AWS IAM
 
-A few examples of extras for this coding challenge:
-1. Dockerizing the application
-2. Scripts to set up the infrastructure
-3. Providing a pipeline for the application deployment
-4. Running the application in a serverless environment
+### DevOps
+- Jenkins
+- Terraform
+- Docker
+- GitHub Webhooks
 
-This is not an exhaustive list of extra features that could be added to this code challenge. At the end of the day, this section is for you to demonstrate any skills you want to show that’s not captured in the core requirement.
-###Webhook test
+### Application
+- React
+- Express
+- Node.js
+- Nginx
+
+---
+
+## CI/CD Pipeline
+
+Pipeline stages:
+
+- Checkout SCM
+- Verify Files
+- Build Frontend Image
+- Build Backend Image
+- Login to ECR
+- Tag Images
+- Push Images to ECR
+- Deploy to ECS
+
+---
+
+## Documentation
+
+Detailed project resources:
+
+- [Architecture Diagram](./docs/architecture-diagram.png)
+- [Project Documentation](./docs/project-documentation.pdf)
+
+## Deployment Evidence
+
+Screenshots of successful deployment are available in:
+
+- [Screenshots Folder](./screenshots/)
+---
+
+## Key Highlights
+
+- Infrastructure provisioned with Terraform  
+- Secure networking with public/private subnets 
+- Security groups enforce least-privilege access between services
+- ECS workloads deployed in private subnets  
+- Jenkins secured using AWS Session Manager (no SSH)  
+- End-to-end automated deployment pipeline  
+
+---
+
+## Future Improvements
+
+- HTTPS with ACM
+- ECS Auto Scaling
+- Remote Terraform state (S3 + DynamoDB)
+- CloudWatch monitoring and alerts
+- Multi-AZ ECS deployment for higher availability
