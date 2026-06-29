@@ -21,9 +21,9 @@ function App() {
 
   return (
     <div className="App">
-      {!failureMessage && !successMessage ? 'Fetching...' : null}
-      {failureMessage ? failureMessage : null}
-      {successMessage ? successMessage : null}
+      <h1>TechPathway Challenge-02</h1>
+      <h2>Backend Response:</h2>
+      <p>{successMessage}</p>
     </div>
   );
 }

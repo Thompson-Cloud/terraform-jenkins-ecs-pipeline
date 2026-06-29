@@ -16,6 +16,10 @@ resource "aws_security_group" "alb" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "${var.project_name}-alb-sg"
+  }
 }
 
 resource "aws_security_group" "frontend" {
@@ -36,7 +40,12 @@ resource "aws_security_group" "frontend" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "${var.project_name}-frontend-sg"
+  }
 }
+
 resource "aws_security_group" "backend" {
   name        = "${var.project_name}-backend-sg"
   description = "Security group for backend ECS service"
@@ -55,11 +64,26 @@ resource "aws_security_group" "backend" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "${var.project_name}-backend-sg"
+  }
 }
+
 resource "aws_security_group" "jenkins" {
   name        = "${var.project_name}-jenkins-sg"
   description = "Security group for Jenkins EC2"
   vpc_id      = aws_vpc.main.id
+
+  # Jenkins UI + GitHub webhook access
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # No SSH rule. Access server only through SSM.
 
   egress {
     from_port   = 0
