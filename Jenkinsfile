@@ -61,23 +61,23 @@ pipeline {
                 '''
             }
         }
-    }
-}
 
-stage('Deploy to ECS') {
-    steps {
-        sh '''
-        aws ecs update-service \
-          --cluster techpathway-cluster \
-          --service techpathway-frontend-service \
-          --force-new-deployment \
-          --region $AWS_REGION
+        stage('Deploy to ECS') {
+            steps {
+                sh '''
+                aws ecs update-service \
+                  --cluster techpathway-cluster \
+                  --service techpathway-frontend-service \
+                  --force-new-deployment \
+                  --region $AWS_REGION
 
-        aws ecs update-service \
-          --cluster techpathway-cluster \
-          --service techpathway-backend-service \
-          --force-new-deployment \
-          --region $AWS_REGION
-        '''
+                aws ecs update-service \
+                  --cluster techpathway-cluster \
+                  --service techpathway-backend-service \
+                  --force-new-deployment \
+                  --region $AWS_REGION
+                '''
+            }
+        }
     }
 }
