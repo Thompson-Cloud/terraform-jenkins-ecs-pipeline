@@ -31,13 +31,5 @@ pipeline {
                 }
             }
         }
-
-        stage('Terraform Check') {
-            steps {
-                dir('terraform') {
-                    sh 'terraform --version'
-                }
-            }
-        }
     }
 }
