@@ -1,4 +1,4 @@
-# TechPathway Challenge 2 – AWS ECS CI/CD Pipeline
+# # End-to-End CI/CD Pipeline for Containerized Application Deployment on AWS
 
 ## Overview
 
